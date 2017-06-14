@@ -1,5 +1,5 @@
 PLUGIN_NAME=virtuozzo/ploop
-PLUGIN_TAG=next
+PLUGIN_TAG=alpine
 
 all: clean docker rootfs create
 

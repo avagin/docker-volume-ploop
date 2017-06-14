@@ -1,8 +1,11 @@
-FROM centos:7
+FROM alpine
 
-ADD virtuozzo.repo /etc/yum.repos.d/
+RUN apk update && apk add curl
 
-RUN printf "upgrade \n install ploop gdisk \n run" | yum shell -y
+RUN curl -o /etc/apk/keys/virtuozzo.rsa.pub http://kojistorage.eng.sw.ru/alpine/ploop/v7.0.88/virtuozzo.rsa.pub 
+RUN echo http://kojistorage.eng.sw.ru/alpine/ploop/v7.0.88/ >> /etc/apk/repositories
+
+RUN apk update && apk add ploop gptfdisk sgdisk ploop-lib util-linux parted e2fsprogs e2fsprogs-extra
 
 RUN mkdir -p /run/docker/plugins /mnt/vstorage/docker /mnt/docker
 
